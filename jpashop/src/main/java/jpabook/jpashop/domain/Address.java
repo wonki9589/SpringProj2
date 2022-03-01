@@ -14,4 +14,14 @@ public class Address {
     private String zipcode;
 
     private String street;
+
+    protected Address(){
+
+    }
+
+    public Address(String city,String zipcode , String street){
+        this.city = city;
+        this.street = street;
+        this.zipcode = zipcode;
+    }
 }
