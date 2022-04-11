@@ -19,6 +19,7 @@ import static org.junit.Assert.*;
 @SpringBootTest
 // 두개 어노테이션이 있어야 실제로 스프링부트 테스트 가능
 @Transactional
+// 롤백하는 기능
 public class MemberServiceTest {
 
 
@@ -45,6 +46,21 @@ public class MemberServiceTest {
 
         //Then
         assertEquals(member, memberRepository.findOne(saveId));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void 중복_회원_예외() throws Exception{
+        //given
+        Member member1 =  new Member();
+        member1.setName("mo");
+
+        Member member2 =  new Member();
+        member2.setName("mo");
+        //when
+        memberService.join(member1);
+        memberService.join(member2); // 예외발생해야함
+        //then
+        fail("예외가 발생해야 한다.");
     }
 
 
